@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18CSP103L</title>
+    <script src="voice.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .container {
+            text-align: center;
+            margin: 14rem 25rem 20rem 25rem;
+            border: 0.1rem solid black;
+            background-color: whitesmoke;
+            height: 15rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 20%;
+            border-radius: 5%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <br>
+        <button id="btn" onclick="recognition.start()">Say</button>
+        <h2 id="result"></h2>
+        <br>
+        <br>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18CSP103L</title>
+    <script src="voice.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .container {
+            text-align: center;
+            margin: 14rem 25rem 20rem 25rem;
+            border: 0.1rem solid black;
+            background-color: whitesmoke;
+            height: 15rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 20%;
+            border-radius: 5%;
+
+        }
+    </style>
+</head>
+<body>
+    
+        <div class="container">
+            <br>
+            <br>
+            Select Voice: <select id='voiceList'></select> <br><br>
+
+            <textarea id="txtInput" placeholder="Type something"></textarea><br><br>
+
+            <button id='btnSpeak'>Speak!</button>
+            <br>
+            <br>
+    
+    
+
+
+    <script>
+        var txtInput = document.querySelector('#txtInput');
+        var voiceList = document.querySelector('#voiceList');
+        var btnSpeak = document.querySelector('#btnSpeak');
+        var synth = window.speechSynthesis;
+        var voices = [];
+
+        PopulateVoices();
+        if(speechSynthesis !== undefined){
+            speechSynthesis.onvoiceschanged = PopulateVoices;
+        }
+
+        btnSpeak.addEventListener('click', ()=> {
+            var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+            var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+            voices.forEach((voice)=>{
+                if(voice.name === selectedVoiceName){
+                    toSpeak.voice = voice;
+                }
+            });
+            synth.speak(toSpeak);
+        });
+
+        function PopulateVoices(){
+            voices = synth.getVoices();
+            var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
+            voiceList.innerHTML = '';
+            voices.forEach((voice)=>{
+                var listItem = document.createElement('option');
+                listItem.textContent = voice.name;
+                listItem.setAttribute('data-lang', voice.lang);
+                listItem.setAttribute('data-name', voice.name);
+                voiceList.appendChild(listItem);
+            });
+
+            voiceList.selectedIndex = selectedIndex;
+        }
+    </script>
+</body>
+</html>
